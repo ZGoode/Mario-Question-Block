@@ -1,5 +1,6 @@
 #include "ADXL335.h"
 #include "coin.h"
+#include "iris_gate.h"
 #include <PCM.h>
 
 /**********************************************************************
@@ -28,19 +29,20 @@ void loop() {
 
   accelerometer.getAcceleration(&ax, &ay, &az);
 
-  if ((ax > /*acceleration threshold*/) || (ay > /*acceleration threshold*/) || (az > /*acceleration threshold*/)) {
+  if ((ax > 2.5) || (ay > 2.5) || (az > 2.5)) {
     toggleLight();
-    startPlayback(data, NUM_ELEMENTS);
-    delay(/*length of soundbite in ms*/);
-    stopPlayback();
-    delay(/*choose time before trigger of light again*/);
   }
 }
 
 void toggleLight() {
   if (digitalRead(light) == HIGH) {
     digitalWrite(light, LOW);
-  } else if (digitalRead(8) == LOW) {
+    
+  } else if (digitalRead(light) == LOW) {
     digitalWrite(light, HIGH);
+    startPlayback(data, NUM_ELEMENTS);
+    delay(/*length of soundbite in ms*/);
+    stopPlayback();
+    delay(/*choose time before trigger of light again*/
   }
 }
