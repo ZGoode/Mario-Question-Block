@@ -14,6 +14,8 @@
 
 ADXL335 accelerometer;
 const int light = 8;
+const float thresholdValue = 2.50;
+const long delayValue = 5000;
 
 void toggleLight();
 
@@ -29,7 +31,7 @@ void loop() {
 
   accelerometer.getAcceleration(&ax, &ay, &az);
 
-  if ((ax > 2.5) || (ay > 2.5) || (az > 2.5)) {
+  if ((ax > thresholdValue) || (ay > thresholdValue) || (az > thresholdValue)) {
     toggleLight();
   }
 }
@@ -37,12 +39,15 @@ void loop() {
 void toggleLight() {
   if (digitalRead(light) == HIGH) {
     digitalWrite(light, LOW);
-    
+    startPlayback(iris_gate, NUM_ELEMENTS_IRIS_GATE);
+    delay(797);
+    stopPlayback();
+    delay(delayValue);
   } else if (digitalRead(light) == LOW) {
     digitalWrite(light, HIGH);
-    startPlayback(data, NUM_ELEMENTS);
-    delay(/*length of soundbite in ms*/);
+    startPlayback(coin, NUM_ELEMENTS_COIN);
+    delay(419);
     stopPlayback();
-    delay(/*choose time before trigger of light again*/
+    delay(delayValue);
   }
 }
