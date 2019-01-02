@@ -1,6 +1,8 @@
 #include "ADXL335.h"
 #include "coin.h"
 #include "iris_gate.h"
+#include "power_up.h"
+#include "power_up_appears.h"
 #include <PCM.h>
 
 /**********************************************************************
@@ -45,9 +47,21 @@ void toggleLight() {
     delay(delayValue);
   } else if (digitalRead(light) == LOW) {
     digitalWrite(light, HIGH);
-    startPlayback(coin, NUM_ELEMENTS_COIN);
-    delay(419);
-    stopPlayback();
+    int rng = random(3);
+
+    if (rng == 0) {
+      startPlayback(coin, NUM_ELEMENTS_COIN);
+      delay(419);
+      stopPlayback();
+    } else if (rng == 1) {
+      startPlayback(power_up, NUM_ELEMENTS_POWER_UP);
+      delay(846);
+      stopPlayback();
+    } else if (rng == 2) {
+      startPlayback(power_up_appears, NUM_ELEMENTS_POWER_UP_APPEARS);
+      delay(467);
+      stopPlayback();
+    }
     delay(delayValue);
   }
 }
