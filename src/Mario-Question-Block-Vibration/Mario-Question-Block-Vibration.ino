@@ -14,6 +14,7 @@
 const int light = 8;
 const int vibration = 10;
 const long delayValue = 5000;
+boolean lightOn = false;
 
 void toggleLight();
 
@@ -32,13 +33,15 @@ void loop() {
 }
 
 void toggleLight() {
-  if (digitalRead(light) == HIGH) {
+  if (lightOn == true) {
+    lightOn = false;
     digitalWrite(light, LOW);
     startPlayback(iris_gate, NUM_ELEMENTS_IRIS_GATE);
     delay(797);
     stopPlayback();
     delay(delayValue);
-  } else if (digitalRead(light) == LOW) {
+  } else if (lightOn == false) {
+    lightOn = true;
     digitalWrite(light, HIGH);
     int rng = random(3);
 

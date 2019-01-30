@@ -16,13 +16,15 @@
 
 ADXL335 accelerometer;
 const int light = 8;
-const float thresholdValue = 2.50;
+const float thresholdValue = 2.00;
 const long delayValue = 5000;
 
 void toggleLight();
 
 void setup() {
   accelerometer.begin();
+  Serial.begin(9600);
+  Serial.println("Begin");
   pinMode(light, OUTPUT);
 }
 
@@ -39,6 +41,7 @@ void loop() {
 }
 
 void toggleLight() {
+  Serial.println("triggered");
   if (digitalRead(light) == HIGH) {
     digitalWrite(light, LOW);
     startPlayback(iris_gate, NUM_ELEMENTS_IRIS_GATE);
